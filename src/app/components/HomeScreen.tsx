@@ -1,7 +1,6 @@
 import { addDays, isAfter, isToday, startOfDay, startOfWeek } from 'date-fns';
 import { Check } from 'lucide-react';
 import { useState } from 'react';
-import BottomNavigation from './BottomNavigation';
 import ScreenHeader from './ScreenHeader';
 
 const routines = [
@@ -44,7 +43,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <div className="flex min-h-[852px] w-[393px] flex-col bg-white">
+    <div className="flex h-full w-full min-h-0 flex-col overflow-hidden bg-white">
       <ScreenHeader title="시작이 반" subtitle="오늘도 한 걸음" />
 
       <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-5 py-5">
@@ -124,8 +123,6 @@ export default function HomeScreen() {
           </div>
         </section>
       </div>
-
-      <BottomNavigation activeTab="home" />
     </div>
   );
 }

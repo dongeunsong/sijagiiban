@@ -1,5 +1,4 @@
-import { Medal, Sparkles, Star, Target, Trophy } from 'lucide-react';
-import BottomNavigation from './BottomNavigation';
+import { ChevronRight, Gift, Medal, Sparkles, Star, Target, Trophy } from 'lucide-react';
 import ScreenHeader from './ScreenHeader';
 
 const earnedBadges = [
@@ -11,9 +10,13 @@ const earnedBadges = [
   { id: 6, name: '완벽한 주', icon: Sparkles, unlocked: false },
 ];
 
-export default function MyPageScreen() {
+type MyPageScreenProps = {
+  onOpenReward?: () => void;
+};
+
+export default function MyPageScreen({ onOpenReward }: MyPageScreenProps) {
   return (
-    <div className="flex min-h-[852px] w-[393px] flex-col bg-gray-50">
+    <div className="flex h-full w-full min-h-0 flex-col overflow-hidden bg-gray-50">
       <ScreenHeader title="마이페이지" />
 
       <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-5 py-5">
@@ -44,11 +47,29 @@ export default function MyPageScreen() {
             </div>
             <button
               type="button"
+              onClick={onOpenReward}
               className="rounded-full bg-white/20 px-4 py-2 text-[13px] font-semibold text-white"
             >
               교환하기
             </button>
           </div>
+        </section>
+
+        <section className="rounded-3xl border border-gray-100 bg-white shadow-sm">
+          <button
+            type="button"
+            onClick={onOpenReward}
+            className="flex w-full items-center gap-4 px-4 py-4 text-left transition-colors hover:bg-gray-50"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#1D9E75]/10 text-[#1D9E75]">
+              <Gift className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[15px] font-semibold text-gray-900">리워드 받기</p>
+              <p className="mt-0.5 text-[12px] text-gray-500">포인트로 다양한 아이템을 교환하세요</p>
+            </div>
+            <ChevronRight className="h-5 w-5 shrink-0 text-gray-300" aria-hidden="true" />
+          </button>
         </section>
 
         <section className="rounded-3xl border border-gray-100 bg-white p-4 shadow-sm">
@@ -97,8 +118,6 @@ export default function MyPageScreen() {
           </div>
         </section>
       </div>
-
-      <BottomNavigation activeTab="my" />
     </div>
   );
 }

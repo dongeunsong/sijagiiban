@@ -1,6 +1,19 @@
+import { ImagePlus, MapPinned } from 'lucide-react';
 import { useState } from 'react';
-import BottomNavigation from './BottomNavigation';
 import ScreenHeader from './ScreenHeader';
+
+const registerActions = [
+  {
+    icon: MapPinned,
+    title: '인증 위치 등록하기',
+    description: '루틴을 수행할 장소를 미리 등록해 두세요.',
+  },
+  {
+    icon: ImagePlus,
+    title: '인증 사진 등록하기',
+    description: '루틴 완료 시 비교할 기준 사진을 등록합니다.',
+  },
+] as const;
 
 const categories = ['운동', '공부', '업무', '기타'];
 const weekLabels = ['월', '화', '수', '목', '금', '토', '일'];
@@ -16,7 +29,7 @@ export default function RoutineRegisterScreen() {
   };
 
   return (
-    <div className="flex min-h-[852px] w-[393px] flex-col bg-white">
+    <div className="flex h-full w-full min-h-0 flex-col overflow-hidden bg-white">
       <ScreenHeader title="루틴 등록" />
 
       <div className="flex flex-1 flex-col gap-5 overflow-y-auto px-5 py-5">
@@ -87,6 +100,27 @@ export default function RoutineRegisterScreen() {
           </div>
         </div>
 
+        <div>
+          <p className="mb-3 text-[13px] font-medium text-gray-700">인증 설정</p>
+          <div className="flex flex-col gap-3">
+            {registerActions.map(({ icon: Icon, title, description }) => (
+              <button
+                key={title}
+                type="button"
+                className="flex w-full items-center gap-4 rounded-2xl border border-gray-100 bg-white px-4 py-4 text-left shadow-sm transition-colors hover:bg-gray-50"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#1D9E75]/10 text-[#1D9E75]">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[14px] font-semibold text-gray-900">{title}</p>
+                  <p className="mt-0.5 text-[12px] leading-relaxed text-gray-500">{description}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="rounded-2xl bg-[#F3FBF8] px-4 py-4 text-[14px] leading-relaxed text-[#1D9E75]">
           작은 시작이 큰 변화를 만듭니다
         </div>
@@ -98,8 +132,6 @@ export default function RoutineRegisterScreen() {
           저장하기
         </button>
       </div>
-
-      <BottomNavigation activeTab="routine" />
     </div>
   );
 }

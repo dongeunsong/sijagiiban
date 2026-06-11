@@ -11,11 +11,12 @@ const tabs: { id: BottomTab; label: string; icon: typeof Home }[] = [
 
 type BottomNavigationProps = {
   activeTab: BottomTab;
+  onTabChange?: (tab: BottomTab) => void;
 };
 
-export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
+export default function BottomNavigation({ activeTab, onTabChange }: BottomNavigationProps) {
   return (
-    <nav className="mt-auto flex shrink-0 items-center justify-around border-t border-gray-100 bg-white px-4 py-3">
+    <nav className="flex shrink-0 items-center justify-around border-t border-gray-100 bg-white px-4 py-3">
       {tabs.map(({ id, label, icon: Icon }) => {
         const active = activeTab === id;
 
@@ -23,6 +24,7 @@ export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
           <button
             key={id}
             type="button"
+            onClick={() => onTabChange?.(id)}
             className={`flex flex-col items-center gap-1 text-[11px] font-medium ${
               active ? 'text-[#1D9E75]' : 'text-gray-400'
             }`}

@@ -1,6 +1,5 @@
 import * as Switch from '@radix-ui/react-switch';
 import { useState } from 'react';
-import BottomNavigation from './BottomNavigation';
 import ScreenHeader from './ScreenHeader';
 
 const alarms = [
@@ -17,7 +16,7 @@ export default function AlarmSettingScreen() {
   };
 
   return (
-    <div className="flex min-h-[852px] w-[393px] flex-col bg-white">
+    <div className="flex h-full w-full min-h-0 flex-col overflow-hidden bg-white">
       <ScreenHeader title="알람 설정" />
 
       <div className="flex flex-1 flex-col gap-5 overflow-y-auto px-5 py-5">
@@ -91,8 +90,6 @@ export default function AlarmSettingScreen() {
           알람 저장
         </button>
       </div>
-
-      <BottomNavigation activeTab="alarm" />
     </div>
   );
 }

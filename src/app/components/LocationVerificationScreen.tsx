@@ -1,32 +1,36 @@
-import { ArrowLeft, MapPin, MapPinned, Navigation } from 'lucide-react';
-import BottomNavigation from './BottomNavigation';
+import { ArrowLeft, MapPin, Navigation } from 'lucide-react';
 import ScreenHeader from './ScreenHeader';
 
 type LocationVerificationScreenProps = {
   onBack?: () => void;
+  onVerifyComplete?: () => void;
 };
 
 const actions = [
   {
-    icon: MapPinned,
-    title: '인증 위치 등록하기',
-    description: '루틴을 수행할 장소를 미리 등록해 두세요.',
-  },
-  {
     icon: Navigation,
     title: 'GPS로 나의 위치 검색하기',
     description: '현재 위치를 GPS로 불러와 확인합니다.',
+    isVerifyAction: false,
   },
   {
     icon: MapPin,
     title: '위치 인증하기',
     description: '등록된 위치와 현재 위치가 일치하는지 인증합니다.',
+    isVerifyAction: true,
   },
 ] as const;
 
-export default function LocationVerificationScreen({ onBack }: LocationVerificationScreenProps) {
+export default function LocationVerificationScreen({ onBack, onVerifyComplete }: LocationVerificationScreenProps) {
+  const handleAction = (isVerifyAction: boolean) => {
+    if (isVerifyAction) {
+      onVerifyComplete?.();
+      return;
+    }
+  };
+
   return (
-    <div className="flex min-h-[852px] w-[393px] flex-col bg-white">
+    <div className="flex h-full w-full min-h-0 flex-col overflow-hidden bg-white">
       <ScreenHeader title="위치 인증" subtitle="등록한 장소에서 루틴을 수행했는지 확인하세요" />
 
       <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-5 py-5">
@@ -56,10 +60,11 @@ export default function LocationVerificationScreen({ onBack }: LocationVerificat
         </div>
 
         <div className="flex flex-col gap-3">
-          {actions.map(({ icon: Icon, title, description }) => (
+          {actions.map(({ icon: Icon, title, description, isVerifyAction }) => (
             <button
               key={title}
               type="button"
+              onClick={() => handleAction(isVerifyAction)}
               className="flex w-full items-center gap-4 rounded-2xl border border-gray-100 bg-white px-4 py-4 text-left shadow-sm transition-colors hover:bg-gray-50"
             >
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#1D9E75]/10 text-[#1D9E75]">
@@ -73,8 +78,6 @@ export default function LocationVerificationScreen({ onBack }: LocationVerificat
           ))}
         </div>
       </div>
-
-      <BottomNavigation activeTab="routine" />
     </div>
   );
 }

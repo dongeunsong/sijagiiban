@@ -1,10 +1,9 @@
 import { CheckCircle2, Coins, Trophy } from 'lucide-react';
-import BottomNavigation from './BottomNavigation';
 import ScreenHeader from './ScreenHeader';
 
 export default function AchievementCompleteScreen() {
   return (
-    <div className="flex min-h-[852px] w-[393px] flex-col bg-white">
+    <div className="flex h-full w-full min-h-0 flex-col overflow-hidden bg-white">
       <ScreenHeader title="달성 완료!" subtitle="필라테스 50분 달성" />
 
       <div className="flex flex-1 flex-col items-center overflow-y-auto px-5 pb-6 pt-8">
@@ -43,8 +42,6 @@ export default function AchievementCompleteScreen() {
           </div>
         </div>
       </div>
-
-      <BottomNavigation activeTab="home" />
     </div>
   );
 }
